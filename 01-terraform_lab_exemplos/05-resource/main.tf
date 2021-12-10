@@ -69,30 +69,84 @@
 # //////
 
 # ///////// do fernando zerati //////
+
+
+# # Forma grande
+# resource "local_file" "map_files" {
+#   count = length(keys(var.arquivos))
+#   filename = "${keys(var.arquivos)[count.index]}.txt"
+#   content = var.arquivos[keys(var.arquivos)[count.index]]
+# }
+
+# variable "subnet" {
+#   type        = string
+#   description = "Qual a subnet?"
+# }
+
+# variable "ami" {
+#   type        = string
+#   description = "Qual é a AMI?"
+# }
+
+# variable "securityGroup" {
+#   type        = string
+#   description = "Qual é o SecurityGroup?"
+# }
+
+# variable "instanceType" {
+#   type        = string
+#   description = "Qual é o InstanceType?"
+# }
+
+
+# variable "arquivos" {
+#   default     = {
+#     ehopner1 = "ehopner-maquina-1",
+#     ehopner2 = "ehopner-maquina-2",
+#     ehopner3 = "ehopner-maquina-3"
+#   }
+# }
+
+
 provider "aws" {
   region = "sa-east-1"
 }
 
-resource "aws_instance" "web2" {
-  subnet_id = "subnet-02d7741675f030d69"
-  ami = "ami-083654bd07b5da81d"
-  instance_type = "t2.micro"
-  key_name = "teste" # a chave que vc tem na maquina pessoal
-  associate_public_ip_address = true
-  vpc_security_group_ids = ["sg-083654bd07b5da81d"]
-  root_block_device {
-    encrypted = true
-    volume_size = 8
-  }
-  tags = {
-    Name = "ec2-zerati-tf"
-  }
-}
+# resource "aws_instance" "web2" {
+#   subnet_id = "${var.subnet}"  #"subnet-0c5a2d7f680727736"
+#   ami = "${var.ami}" #"ami-0e66f5495b4efdd0f"
+#   instance_type = "${var.instanceType}" #"t2.large"
+#   ##count = length(keys(var.arquivos))
+#   key_name = "ehopner-dev" # a chave que vc tem na maquina pessoal
+#   associate_public_ip_address = true
+#   vpc_security_group_ids = ["${var.securityGroup}"]#["sg-05e0f6eddc0bbe551"]
+#   root_block_device {
+#     encrypted = true
+#     volume_size = 8
+#   }
+#   tags = {
+#     Name = "ec2-ehopner-tf-teste"
+#   }
+# }
+
+# output "instance_public_dns" {
+#   value = [
+#     aws_instance.web2.public_dns
+#   ]
+#   description = "Mostra o DNS Publico"
+# }
+
+# output "instance_public_ip" {
+#   value = [
+#     aws_instance.web2.public_ip
+#   ]
+#   description = "Mostra o IP Publico"
+# }
 
 resource "aws_key_pair" "chave_key" {
-  key_name   = "chave_key"
-  public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABUAHUAHuaHaUhAUhAUAiqHA541BsJFngWPqlx27QdAZEWdMLvJv5Wguvatb6LIDo1V3rJ4mUtRRs0o2q3LwYiA5CIkiHFXyNVhXTF1WNAbRossUMsu/BzmgEKyIPPgPHeM0PyRi6FuW1TTZYdnO/GCzJ0UMvZFKnr2g6rELWgdc9Clxz8peNJ+iPJx/sJb+DxTuHDJc1U9eOYS7vlwzsHHApD9O+DbWnpwRpSEuX3vjm5pEEAPqrcBD3HK8kH2qMVRZNxg/fSzSrzjCwFV3ShNbKSTD6HYBV2xCY18mRFjyW94BPSBDGel7/kqTmXY4jtbAoyycWRZJFYhCdzNfItT69nHmsT3i09e0J9jNI6CaameQg/cwIOt8fl+lxUIAufHqFDJPGMJcNFoVR7t7yWPXN3qev2OlGnQONDVlNOmIJDrO+r2QeoVcKaxKye7G3HD3u4HuqGYfL9MtCo6pOZ8IZsCCj2KpS4KQCc="
-}
+  key_name   = "chave_key_gerada"
+  public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDXMoVhR9eNr5JzSYLy2r7S5emAkThJpMUyNNqv+HSEc6qSKMVY+R76lqhnPXQ2rpTWb18r27zTaD7bb+++9R+0qijzCswnDKfh8zY6EXRlnYcnPJ/eP6TAkm0d8LmoGBdDZwpUJCOtQy/5BO3Mw+qDcKKpPAYU4AKWfOx8rSsCLauzH7AQN+Vjeh5cPLXjaHC56f5BJC55iTC3bdaLT/KVAMs+0XFzwH1l8lAMqqsuUeQs8jomGNVPS0BXFJed+GOVLbwFHejzR0R4Aj/4TLWLoTz+UsXFK55qUJNb6VSIIYT4RF7ZzJVf+d+n5Ea1aMsb9OLMGd6FwgQPqTkyYtVdlkaWFW90gCgW3LHwwp1mCRqqFGDBDlaROJvn7AvK24zy3tlOM5pMljseg+yNfZRlIFqkkXWmxd+ZfApDOKq1FM/mnD5wLECmBept7aV3TECmDGW16nfdLGnjIpdfwQPzMwtZk5ZNdsgCrYaoIba4/97pioZKpB/DsezB0P2sbW8= ubuntu@ip-10-10-192-193"
+  }
 
 
 # /////
